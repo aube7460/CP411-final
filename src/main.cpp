@@ -56,6 +56,24 @@ void winReshapeFcn(GLint newWidth, GLint newHeight) {
 	winHeight = newHeight;
 }
 
+void keyPressed (unsigned char key, int x, int y) {
+	if (key == 'w') {
+		printf("UP\n");
+	}
+	else if (key == 'a') {
+		printf("LEFT\n");
+	}
+	else if (key == 's') {
+		printf("DOWN\n");
+	}
+	else if (key == 'd') {
+		printf("RIGHT\n");
+	}
+	else {
+		printf("-invalid key-\n");
+	}
+}
+
 int main(int argc, char** argv) {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
@@ -64,6 +82,7 @@ int main(int argc, char** argv) {
 	glutCreateWindow("Archery Simulation by Jason and Joe");
 	init();
 	glutDisplayFunc(display);
+	glutKeyboardFunc(keyPressed); // movement key function
 	glutMainLoop();
 	return 0;
 }
