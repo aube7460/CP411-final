@@ -9,13 +9,13 @@
 #define TREEBODY_HPP_
 
 #include <GL/glut.h>
-#include "Shape.hpp"
+#include "../Shape.hpp"
 
 class TreeBody: public Shape{
 protected:
 	GLfloat vertex[5][3];
-	GLfloat face[4][3];
-	GLfloat treeBody_face_norm_mc
+	GLint face[4][3];
+	GLfloat treeBody_face_norm_mc[4][3];
 
 public:
 	TreeBody();

@@ -5,6 +5,8 @@
  *      Author: jason
  */
 
+#include "Shape.hpp"
+
 Shape::Shape() {
 	MC.mat[0][0] = 1.0; MC.mat[0][1] = 0.0; MC.mat[0][2] = 0.0; MC.mat[0][3] = 0.0;
 	MC.mat[1][0] = 0.0; MC.mat[1][1] = 1.0; MC.mat[1][2] = 0.0; MC.mat[1][3] = 0.0;
