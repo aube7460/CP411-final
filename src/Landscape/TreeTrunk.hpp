@@ -9,7 +9,9 @@
 #define TREETRUNK_HPP_
 
 #include <GL/glut.h>
-#include "Shape.hpp"
+#include "../Camera.hpp"
+#include "../Light.hpp"
+#include "../Shape.hpp"
 
 class TreeTrunk:public Shape{
 protected:

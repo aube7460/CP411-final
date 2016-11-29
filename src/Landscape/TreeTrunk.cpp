@@ -6,8 +6,6 @@
  */
 
 #include "TreeTrunk.hpp"
-#include "Camera.hpp"
-#include "Light.hpp"
 
 extern Camera myCamera;
 //extern Light myLight;

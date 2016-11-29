@@ -5,10 +5,6 @@
  *      Author: jason
  */
 
-/**
- *	CP411 Assignment 4 reference design
- */
-
 #include <GL/glut.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -17,6 +13,7 @@
 #include "Camera.hpp"
 #include "Matrix.hpp"
 #include "Light.hpp"
+#include "Landscape/Landscape.hpp"
 
 // declaring the size of the window
 GLint winWidth = 800, winHeight = 800;
@@ -25,9 +22,12 @@ GLfloat red = 1.0, green = 1.0, blue = 1.0;  //color
 
 Camera myCamera;
 Landscape myLandscape;
+Light myLight;
 
 void init(void) {
+	myLight.translate(1.5,1.5,1.5);
 	glClearColor(0.0, 0.0, 0.0, 1.0);
+	myCamera.setProjectionMatrix();
 }
 
 
@@ -56,20 +56,14 @@ void winReshapeFcn(GLint newWidth, GLint newHeight) {
 	winHeight = newHeight;
 }
 
-void mouseAction(int button, int state, int x, int y) {
-	glutPostRedisplay();
-}
-
-void mouseMotion(GLint x, GLint y) {
-	glutPostRedisplay();
-}
-
 int main(int argc, char** argv) {
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGB);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
 	glutInitWindowPosition(100, 100);
 	glutInitWindowSize(winWidth, winHeight);
 	glutCreateWindow("Archery Simulation by Jason and Joe");
 	init();
+	glutDisplayFunc(display);
+	glutMainLoop();
 	return 0;
 }
