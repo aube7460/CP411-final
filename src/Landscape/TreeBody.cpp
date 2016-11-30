@@ -8,11 +8,11 @@
 #include "TreeBody.hpp"
 
 TreeBody::TreeBody(){
-	vertex[0][0] = -1;vertex[0][1] = 0;vertex[0][2] = 1;
-	vertex[1][0] = 1;vertex[1][1] = 0;vertex[1][2] = 1;
-	vertex[2][0] = 1;vertex[2][1] = 0;vertex[2][2] = -1;
-	vertex[3][0] = -1;vertex[3][1] = 0;vertex[3][2] = -1;
-	vertex[4][0] = 0;vertex[4][1] = 1;vertex[4][2] = 0;
+	vertex[0][0] = -0.5; vertex[0][1] = 0; vertex[0][2] =  0.5;
+	vertex[1][0] =  0.5; vertex[1][1] = 0; vertex[1][2] =  0.5;
+	vertex[2][0] =  0.5; vertex[2][1] = 0; vertex[2][2] = -0.5;
+	vertex[3][0] = -0.5; vertex[3][1] = 0; vertex[3][2] = -0.5;
+	vertex[4][0] =  0.5; vertex[4][1] = 2; vertex[4][2] =  0.5;
 
 	face[0][0] = 1;face[0][1] = 4;face[0][2] = 0;
 	face[1][0] = 2;face[1][1] = 4;face[1][2] = 1;
@@ -22,7 +22,7 @@ TreeBody::TreeBody(){
 }
 
 void TreeBody::draw_face(int i){
-	glBegin(GL_LINE_LOOP);
+	glBegin(GL_TRIANGLES);
 		glVertex3fv(&vertex[face[i][0]][0]);
 		glVertex3fv(&vertex[face[i][1]][0]);
 		glVertex3fv(&vertex[face[i][2]][0]);
@@ -33,6 +33,7 @@ void TreeBody::draw(){
 	glPushMatrix();
 	this->ctm_multiply();
 	glScalef(s,s,s);
+	glColor3f(0,1,0);
 	for (int i = 0; i < 4; i++){
 		draw_face(i);
 	}

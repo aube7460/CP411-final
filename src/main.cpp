@@ -14,6 +14,7 @@
 #include "Matrix.hpp"
 #include "Light.hpp"
 #include "Landscape/Landscape.hpp"
+#include "Landscape/background.hpp"
 
 // declaring the size of the window
 GLint winWidth = 800, winHeight = 800;
@@ -22,14 +23,18 @@ GLfloat red = 1.0, green = 1.0, blue = 1.0;  //color
 
 Camera myCamera;
 Landscape myLandscape;
+Background myBackground;
 Light myLight;
 
 void init(void) {
 	myLight.translate(1.5,1.5,1.5);
 	glClearColor(0.0, 0.0, 0.0, 1.0);
 	myCamera.setProjectionMatrix();
+	myBackground.draw(winWidth,winHeight);
+	myLandscape.list[1] -> translate(0,0,2);
+	myLandscape.list[2] -> translate(2,0,0);
+	myLandscape.list[3] -> translate(0,3,0);
 }
-
 
 void reset(void) {
 	glFlush();
@@ -66,4 +71,5 @@ int main(int argc, char** argv) {
 	glutDisplayFunc(display);
 	glutMainLoop();
 	return 0;
+
 }
