@@ -10,11 +10,12 @@
 
 #include "TreeBody.hpp"
 #include "TreeTrunk.hpp"
+#include "Tree.hpp"
 #include "Sun.hpp"
 
 class Landscape {
 public:
-	Shape* list[3];
+	Shape* list[4];
 	Landscape();
 	~Landscape();
 	void draw_landscape();
