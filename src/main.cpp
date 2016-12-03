@@ -21,6 +21,7 @@
 #include "Landscape/TreeBody.hpp"
 #include "Landscape/Tree.hpp"
 #include "pixmap/RGBpixmap.hpp"
+#include "Bow.hpp"
 
 // declaring the size of the window
 GLint winWidth = 800, winHeight = 800;
@@ -32,6 +33,7 @@ Light myLight;
 Tree myTree;
 RGBpixmap pix[6];   // make six pixmaps
 GLint textureArr[2];
+Bow myBow;
 
 void init(void) {
 	glClearColor(1.0, 1.0, 1.0, 0.0);
@@ -70,6 +72,8 @@ void init(void) {
 	myBackground.textureSkyID = 1;
 }
 
+}
+
 void reset(void) {
 	glFlush();
 	glutPostRedisplay();
@@ -85,6 +89,7 @@ void display() {
 	myBackground.drawGround(winWidth,winHeight);
 	myBackground.drawSky(winWidth,winHeight);
 	myLandscape.draw_landscape();
+	myBow.draw();
 
 	glFlush();
 	glutSwapBuffers();
@@ -116,6 +121,21 @@ void keyPressed (unsigned char key, int x, int y) {
 	}
 }
 
+void reshape(int w, int h)
+{
+   glViewport(0, 0, (GLsizei) w, (GLsizei) h);
+   glMatrixMode(GL_PROJECTION);
+   glLoadIdentity();
+   if (w <= h)
+      glOrtho(-5.0, 5.0, -5.0*(GLfloat)h/(GLfloat)w,
+               5.0*(GLfloat)h/(GLfloat)w, -5.0, 5.0);
+   else
+      glOrtho(-5.0*(GLfloat)w/(GLfloat)h,
+               5.0*(GLfloat)w/(GLfloat)h, -5.0, 5.0, -5.0, 5.0);
+   glMatrixMode(GL_MODELVIEW);
+   glLoadIdentity();
+}
+
 int main(int argc, char** argv) {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
@@ -125,8 +145,10 @@ int main(int argc, char** argv) {
 	//glewInit();
 	init();
 	glutDisplayFunc(display);
+	glutReshapeFunc(reshape);
 	glutKeyboardFunc(keyPressed); // movement key function
 	glutMainLoop();
+
 	return 0;
 
 }
