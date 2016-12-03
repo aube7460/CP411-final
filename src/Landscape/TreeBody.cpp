@@ -19,24 +19,27 @@ TreeBody::TreeBody(){
 	face[2][0] = 3;face[2][1] = 4;face[2][2] = 2;
 	face[3][0] = 0;face[3][1] = 4;face[3][2] = 3;
 
+	textureID=0;
+
 }
 
 void TreeBody::draw_face(int i){
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, textureID);
 	glBegin(GL_TRIANGLES);
-		glVertex3fv(&vertex[face[i][0]][0]);
-		glVertex3fv(&vertex[face[i][1]][0]);
-		glVertex3fv(&vertex[face[i][2]][0]);
+		glTexCoord2f(0.0,0.0);glVertex3fv(&vertex[face[i][0]][0]);
+		glTexCoord2f(2.0,0.0);glVertex3fv(&vertex[face[i][1]][0]);
+		glTexCoord2f(1.0,1.0);glVertex3fv(&vertex[face[i][2]][0]);
 	glEnd();
+	glDisable(GL_TEXTURE_2D);
 }
 
 void TreeBody::draw(){
 	glPushMatrix();
 	this->ctm_multiply();
 	glScalef(s,s,s);
-	glColor3f(0,1,0);
 	for (int i = 0; i < 4; i++){
 		draw_face(i);
 	}
 	glPopMatrix();
 }
-

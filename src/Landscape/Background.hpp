@@ -9,12 +9,15 @@
 #define BACKGROUND_HPP_
 
 #include <GL/glut.h>
+#include "../Shape.hpp"
 
-class Background{
-protected:
-	GLint x1,x2,y1,y2;
+class Background:public Shape{
 public:
-	void draw(int,int);
+	GLint textureSkyID;
+	GLint textureGroundID;
+	Background();
+	void drawSky(int width,int height);
+	void drawGround(int width,int height);
 };
 
 #endif /* BACKGROUND_HPP_ */

@@ -12,11 +12,10 @@
 #include "TreeTrunk.hpp"
 
 class Tree: public Shape {
-protected:
-	TreeTrunk* myTrunk; // body of the tree
-	TreeBody* myBody; // trunk of the tree
 
 public:
+	TreeTrunk* myTrunk; // body of the tree
+	TreeBody* myBody; // trunk of the tree
 	Tree();
 	void draw();
 };

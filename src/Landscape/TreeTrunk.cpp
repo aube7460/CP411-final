@@ -26,32 +26,34 @@ TreeTrunk::TreeTrunk(){
 	face[3][0] = 4;face[3][1] = 5;face[3][2] = 1;face[3][3] = 0;
 	face[4][0] = 5;face[4][1] = 7;face[4][2] = 3;face[4][3] = 1;
 	face[5][0] = 6;face[5][1] = 4;face[5][2] = 0;face[5][3] = 2;
+
+	textureID = 0;
 }
 
 void TreeTrunk::draw_face(int i){
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, textureID);
 	glBegin(GL_QUADS);
-		glVertex3fv(&vertex[face[i][0]][0]);
-		glVertex3fv(&vertex[face[i][1]][0]);
-		glVertex3fv(&vertex[face[i][2]][0]);
-		glVertex3fv(&vertex[face[i][3]][0]);
+		glTexCoord2f(0.0,0.0);glVertex3fv(&vertex[face[i][0]][0]);
+		glTexCoord2f(1.0,0.0);glVertex3fv(&vertex[face[i][1]][0]);
+		glTexCoord2f(1.0,1.0);glVertex3fv(&vertex[face[i][2]][0]);
+		glTexCoord2f(0.0,1.0);glVertex3fv(&vertex[face[i][3]][0]);
 	glEnd();
+	glDisable(GL_TEXTURE_2D);
+
 }
 
 void TreeTrunk::draw(){
 	glPushMatrix();
-		this->ctm_multiply();
-		glScalef(0.5*s,0.5*s,0.5*s);
-		glColor3f(0.55,0.27,0.07);
-		for (int i=0; i<6; i++){
-			if(!isBackface(i)){
-
-				draw_face(i);
-			}
-		}
+	this->ctm_multiply();
+	glScalef(0.5*s,0.5*s,0.5*s);
+	for (int i=0; i<6; i++){
+		draw_face(i);
+	}
 	glPopMatrix();
 }
 
-bool TreeTrunk::isBackface(int i){
+/*bool TreeTrunk::isBackface(int i){
 	GLfloat v[4];
 	v[0] = treeTrunk_face_norm_mc[i][0];
 	v[1] = treeTrunk_face_norm_mc[i][1];
@@ -64,5 +66,5 @@ bool TreeTrunk::isBackface(int i){
 	}
 
 	return false;
-}
+}*/
 

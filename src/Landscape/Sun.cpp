@@ -22,7 +22,6 @@ void Sun::draw() { /*1: wire, 4: bitmap */
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, matDif1);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, matSpec1);
 	glMaterialfv(GL_FRONT, GL_EMISSION, matEm1);
-	glColor3f(1,1,0);
 	mySun->draw();
 }
 

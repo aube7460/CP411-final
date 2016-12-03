@@ -18,11 +18,11 @@ protected:
 	GLfloat treeBody_face_norm_mc[4][3];
 
 public:
+	GLuint textureID;
 	TreeBody();
 	void draw_face(int);
 	void draw();
 	bool isBackface(int);
-	void setTextureId(int,int);
 };
 
 #endif /* TREEBODY_HPP_ */

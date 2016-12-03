@@ -1,5 +1,5 @@
 /*
- * Tree.hpp
+ * TreeTrunk.hpp
  *
  *  Created on: Nov 29, 2016
  *      Author: jason
@@ -20,12 +20,10 @@ protected:
 	GLfloat treeTrunk_face_norm_wc[6][4];
 	GLfloat treeTrunk_face_norm_mc[6][4];
 public:
+	GLuint textureID;
 	TreeTrunk();
 	void draw_face(int);
 	void draw();
-	bool isBackface(int);
-	GLfloat getFaceShade(int);
-	void setTextureID(int,int);
 };
 
-#endif /* TREE_HPP_ */
+#endif /* TREETRUNK_HPP_ */
