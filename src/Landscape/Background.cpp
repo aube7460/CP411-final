@@ -14,14 +14,13 @@ Background::Background(){
 
 void Background::drawSky(int winWidth, int winHeight){
 	glPushMatrix();
-	this->ctm_multiply();
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D,textureSkyID);
-	glBegin(GL_QUADS);
-		glTexCoord2i(0,0); glVertex2i(-winWidth,0);
-		glTexCoord2i(1,0); glVertex2i(-winWidth,winHeight);
-		glTexCoord2i(1,1); glVertex2i(winWidth, winHeight);
-		glTexCoord2i(0,1); glVertex2i(winWidth, 0);
+	glBegin(GL_LINE_LOOP);
+		glTexCoord2f(0.0,0.0); glVertex2i(-winWidth,0);
+		glTexCoord2f(1.0,0.0); glVertex2i(-winWidth,winHeight);
+		glTexCoord2f(1.0,1.0); glVertex2i(winWidth, winHeight);
+		glTexCoord2f(0.0,1.0); glVertex2i(winWidth, 0);
 	glEnd();
 	glDisable(GL_TEXTURE_2D);
 	glPopMatrix();
@@ -29,7 +28,6 @@ void Background::drawSky(int winWidth, int winHeight){
 
 void Background::drawGround(int winWidth, int winHeight){
 	glPushMatrix();
-	this->ctm_multiply();
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D,textureGroundID);
 	glBegin(GL_QUADS);

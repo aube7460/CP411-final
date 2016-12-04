@@ -75,23 +75,6 @@ int RGBpixmap:: readBMPFile(string fname)
 	ulong numLUTentries = getLong();	// 256 for 8 bit, otherwise 0 
 	ulong impColors = 	getLong();      // always 0 
 
-	/*	#define tell(str,val) cout << str << " = " << val << endl;
-	tell("file size",fileSize);
-	tell("reserved1", reserved1);
-	tell("reserved2", reserved2);
-	tell("offBits", offBits);
-	tell("numCols", numCols);
-	tell("numRows", numRows);
-	tell("planes", planes);
-	tell("bitsPerPixel", bitsPerPix);
-	tell("image size", imageSize);
-	tell("compression", compression);
-	tell("xPels", xPels);
-	tell("yPels", yPels);
-	tell("numUTentries", numLUTentries);
-	tell("impColors", impColors);
-	*/
-
 	if(bitsPerPix != 24) 
 	{
 		cout << "not a 24 bit/pixelimage!\n"; inf.close(); return 0;
@@ -103,7 +86,6 @@ int RGBpixmap:: readBMPFile(string fname)
 	
 	nRows = numRows; // set class's data members
 	nCols = numCols;
-	cout << "numRows,numCols = " << numRows << "," << numCols << endl;
 	cout.flush();
 	pixel = new mRGB[nRows * nCols]; //space for array in memory
 	
@@ -122,95 +104,13 @@ int RGBpixmap:: readBMPFile(string fname)
 			inf >> dum;
 	}
 	inf.close();
-	cout << "File was read successfully: File name: " << fname << endl;
 	return 1; // success
 }
-//<<<<<<<<<<<<<<<<<< RGBpixmap:: writeBMPFile >>>>>>>>>>>>>>>>>
-int RGBpixmap:: writeBMPFile(string fname)
-{
-	outf.open(fname.c_str(), ios::out | ios::binary);
-	if( !outf)
-	{ 
-		cout << " can't open file!\n"; 
-		return 0;
-	}
 
-	if((nRows <= 0) || (nCols <= 0))
-	{
-		cout << "\n degenerate image!\n"; 
-		return 0;
-	}
-
-	// Must write a multiple of four bytes in each row of the image
-	ushort nBytesInRow = ((3 * nCols + 3)/4) * 4;		// round up 3 * nCols to next mult. of 4
-	int numPadBytes = nBytesInRow - 3 * nCols;			// num of pad bytes at end of each row
-	ulong biSizeImage =  nBytesInRow * (ulong)nRows;	// size of image
-	
-	//write pixmap FileHeader
-	ushort bfType = 0x4d42;				// 'BM';'B'=0x42, 'M'=0x4d
-	putShort(bfType);					// write it to file
-	ulong bfSize = 54 + biSizeImage;	//total size of image
-	putLong(bfSize);
-	putShort(0); putShort(0);	// reserved 1 & 2
-	putLong(ulong(54));			//bfOffBits: 54 - but not used in readers
-	putLong(ulong(40));			// biSize - bytes in info header
-	putLong(ulong(nCols)); 
-	putLong(ulong(nRows));
-	putShort(ushort(1));   
-	putShort(ushort(24));		// bit planes & bit count
-	putLong(0L);				// compression
-	putLong(biSizeImage);
-	putLong(0L); putLong(0L);	//pelsPerMeterX and Y
-	putLong(0L); putLong(0);	//colors used & important colors
-
-	//##############write bytes  ###############################
-	long count = 0;
-	for(int row = 0; row < nRows; row++)
-	{
-		for(int col = 0; col < nCols; col++)
-		{
-			outf.put(pixel[count].b);
-			outf.put(pixel[count].g);	
-			outf.put(pixel[count++].r);
-		}
-		//now pad this row so num bytes is a mult of 4
-		for(int k = 0; k < numPadBytes ; k++) //write dummy bytes to pad out row
-			outf.put(char(0)); //padding bytes of 0
-	}
-	outf.close(); 
-	return 1;  //success
-}
-
-//################### setTexture #####################
-//<<<<<<<<<<<<<<<<<<<<< setTexture >>>>>>>>>>>>>>>>>>>>>>>
 void RGBpixmap :: setTexture(unsigned int textureName)
 {
 	glBindTexture(GL_TEXTURE_2D,textureName);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_NEAREST);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB,nCols,nRows,0, GL_RGB, 	GL_UNSIGNED_BYTE, pixel);
-}
-
-//<<<<<<<<<<<<<<<<<<<<< makeCheckerboard >>>>>>>>>>>>>>>>>>>>>>>
-void RGBpixmap::makeCheckerboard()
-{  
-	// make checkerboard patten
-	nRows = nCols = 64;
-	pixel = new mRGB[3 * nRows * nCols]; 
-	if(!pixel)
-	{
-		cout << "out of memory!";
-		return;
-	}
-
-	long count = 0;
-
-	for(int i = 0; i < nRows; i++)
-		for(int j = 0; j < nCols; j++)
-		{
-			int c = (((i/8) + (j/8)) %2) * 255;  
-			pixel[count].r = c; 	// red
-			pixel[count].g = c; 	// green
-			pixel[count++].b = 0; 	// blue
-		}
 }

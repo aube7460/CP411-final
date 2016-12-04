@@ -9,9 +9,8 @@
 #define BACKGROUND_HPP_
 
 #include <GL/glut.h>
-#include "../Shape.hpp"
 
-class Background:public Shape{
+class Background{
 public:
 	GLint textureSkyID;
 	GLint textureGroundID;

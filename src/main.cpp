@@ -72,8 +72,6 @@ void init(void) {
 	myBackground.textureSkyID = 1;
 }
 
-}
-
 void reset(void) {
 	glFlush();
 	glutPostRedisplay();
