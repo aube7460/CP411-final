@@ -16,7 +16,6 @@
 #include "Sphere.hpp"
 
 class Sun : public Shape {
-protected:
 
 public:
 	Sphere* mySun;

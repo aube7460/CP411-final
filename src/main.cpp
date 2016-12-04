@@ -22,6 +22,7 @@
 #include "Landscape/Tree.hpp"
 #include "pixmap/RGBpixmap.hpp"
 #include "Bow.hpp"
+#include "Target.hpp"
 
 // declaring the size of the window
 GLint winWidth = 800, winHeight = 800;
@@ -34,6 +35,7 @@ Tree myTree;
 RGBpixmap pix[6];   // make six pixmaps
 GLint textureArr[2];
 Bow myBow;
+Target myTarget;
 
 void init(void) {
 	glClearColor(1.0, 1.0, 1.0, 0.0);
@@ -44,7 +46,7 @@ void init(void) {
 	myLandscape.list[2] -> translate(2,0,0);
 	myLandscape.list[3] -> translate(0,3,0);*/
 
-	pix[0].readBMPFile("Bullseye.bmp");
+	pix[0].readBMPFile("target1.bmp");
 	pix[0].setTexture(0);
 
 	pix[1].readBMPFile("sky.bmp");
@@ -70,6 +72,7 @@ void init(void) {
 	sunObj->mySun->textureID=5;
 	myBackground.textureGroundID = 2;
 	myBackground.textureSkyID = 1;
+	myTarget.myTarget->textureID = 0;
 }
 
 void reset(void) {
@@ -87,6 +90,7 @@ void display() {
 	myBackground.drawGround(winWidth,winHeight);
 	myBackground.drawSky(winWidth,winHeight);
 	myLandscape.draw_landscape();
+	myTarget.draw(1.0,1.0);
 	myBow.draw();
 
 	glFlush();
