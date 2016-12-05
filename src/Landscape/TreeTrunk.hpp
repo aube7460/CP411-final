@@ -17,7 +17,6 @@ class TreeTrunk:public Shape{
 protected:
 	GLfloat vertex[8][3];
 	GLint face[6][4];
-	GLfloat treeTrunk_face_norm_wc[6][4];
 	GLfloat treeTrunk_face_norm_mc[6][4];
 public:
 	GLuint textureID;

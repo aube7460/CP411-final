@@ -8,8 +8,10 @@
 #ifndef TREE_HPP_
 #define TREE_HPP_
 
+#include <stdio.h>
 #include "TreeBody.hpp"
 #include "TreeTrunk.hpp"
+
 
 class Tree: public Shape {
 

@@ -10,7 +10,11 @@
 Sun::Sun() {
 	mySun = new Sphere();
 	mySun-> radius = 0.5;
-	mySun-> translate(3, 4, 0);
+	mySun-> translate(3, 3, 0);
+	Rd = 0.5;
+	Ia = 1.0;
+	Ra = 0.5;
+
 }
 
 void Sun::draw() { /*1: wire, 4: bitmap */
@@ -34,4 +38,7 @@ void Sun::reset() {
 	mySun = new Sphere();
 	mySun->radius = 1;
 	mySun->translate(0, 0, 0);
+	Rd = 0.5;
+	Ia = 1.0;
+	Ra = 0.5;
 }
