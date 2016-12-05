@@ -71,6 +71,7 @@ void init(void) {
 	myTree2.myBody->textureID = 3;
 	myTree2.myTrunk->textureID = 4;
 	myTree2.scale_change(0.4);
+	myTree2.myBody->translate(0,-0.25,0);
 	myTree3.myBody->textureID = 3;
 	myTree3.myTrunk->textureID = 4;
 	myTree3.scale_change(0.8);
