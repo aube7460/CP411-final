@@ -17,10 +17,11 @@ class Bow {
 
 public:
 	GLfloat bowCtrlPoints[4][3];
+	GLfloat stringCtrlPoints[4][3];
 
 	Bow(); // initializer function
 	void draw();// draw function must be overwritten    - may need to include 'virtual' because it has to be overwritten
-	void pullBow(); // adjust control points for the bow
+	void pullBow(bool); // adjust control points for the bow
 	void reset(); // reset bow
 };
 
