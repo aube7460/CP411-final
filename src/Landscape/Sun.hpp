@@ -15,9 +15,14 @@
 #include <GL/glut.h>
 #include "Sphere.hpp"
 
+extern GLfloat light0_ambient[];
+extern GLfloat light0_diffuse[];
+extern GLfloat light0_position[];
+
 class Sun : public Shape {
 
 public:
+	GLfloat I, Rd, Ia, Ra;
 	Sphere* mySun;
 
 	Sun();

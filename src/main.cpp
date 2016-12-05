@@ -37,6 +37,9 @@ GLint textureArr[2];
 Bow myBow;
 Target myTarget;
 
+//declare shader program object
+GLuint ProgramObject;
+
 void init(void) {
 	glClearColor(1.0, 1.0, 1.0, 0.0);
 	myLight.translate(1.5,1.5,1.5);
@@ -82,10 +85,11 @@ void init(void) {
 
 	Sun* sunObj = (Sun*) myLandscape.list[0];
 	sunObj->mySun->textureID=5;
+
 	myBackground.textureGroundID = 2;
 	myBackground.textureSkyID = 1;
+
 	myTarget.myTarget->textureID = 0;
-	myTarget.translate(0,0,0);
 	myTarget.scale_change(0.25);
 }
 
@@ -158,7 +162,6 @@ int main(int argc, char** argv) {
 	glutInitWindowPosition(100, 100);
 	glutInitWindowSize(winWidth, winHeight);
 	glutCreateWindow("Archery Simulation by Jason and Joe");
-	//glewInit();
 	init();
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
