@@ -114,8 +114,19 @@ void keyPressed (unsigned char key, int x, int y) {
 	else if (key == 'd') {
 		printf("RIGHT\n");
 	}
+	else if (key == 'o') {
+		myBow.pullBow(true);
+		display();
+	}
 	else {
-		printf("-invalid key-\n");
+		printf("Invalid keystroke\n");
+	}
+}
+
+void keyUpPressed (unsigned char key, int x, int y) {
+	if (key == 'o') {
+		myBow.pullBow(false);
+		display();
 	}
 }
 
@@ -145,6 +156,7 @@ int main(int argc, char** argv) {
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
 	glutKeyboardFunc(keyPressed); // movement key function
+	glutKeyboardUpFunc(keyUpPressed);
 	glutMainLoop();
 
 	return 0;
