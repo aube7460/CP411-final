@@ -20,7 +20,7 @@ public:
 	Sphere* myTarget;
 	GLfloat PI;
 	Target();
-	void draw(GLfloat x, GLfloat y);
+	void draw(GLfloat x, GLfloat y,GLfloat radius);
 };
 
 #endif /* TARGET_HPP_ */

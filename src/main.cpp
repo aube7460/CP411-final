@@ -31,7 +31,7 @@ Background myBackground;
 Camera myCamera;
 Landscape myLandscape;
 Light myLight;
-Tree myTree;
+Tree myTree,myTree2,myTree3;
 RGBpixmap pix[6];   // make six pixmaps
 GLint textureArr[2];
 Bow myBow;
@@ -42,9 +42,6 @@ void init(void) {
 	myLight.translate(1.5,1.5,1.5);
 
 	myCamera.setProjectionMatrix();
-/*	myLandscape.list[1] -> translate(0,0,2);
-	myLandscape.list[2] -> translate(2,0,0);
-	myLandscape.list[3] -> translate(0,3,0);*/
 
 	pix[0].readBMPFile("target1.bmp");
 	pix[0].setTexture(0);
@@ -66,13 +63,30 @@ void init(void) {
 
 	myTree.myBody->textureID = 3;
 	myTree.myTrunk->textureID = 4;
+	myTree.scale_change(0.2);
+	myTree.myBody->translate(0,-0.25,0);
+	myTree2.myBody->textureID = 3;
+	myTree2.myTrunk->textureID = 4;
+	myTree2.scale_change(0.4);
+	myTree3.myBody->textureID = 3;
+	myTree3.myTrunk->textureID = 4;
+	myTree3.scale_change(0.8);
+
 	myLandscape.list[1] = &myTree;
+	myLandscape.list[2] = &myTree2;
+	myLandscape.list[3] = &myTree3;
+
+	myLandscape.list[1] -> translate(1.5,0,0);
+	myLandscape.list[2] -> translate(-1.5,-0.5,0);
+	myLandscape.list[3] -> translate(-2.5,-1,0);
 
 	Sun* sunObj = (Sun*) myLandscape.list[0];
 	sunObj->mySun->textureID=5;
 	myBackground.textureGroundID = 2;
 	myBackground.textureSkyID = 1;
 	myTarget.myTarget->textureID = 0;
+	myTarget.translate(0,0,0);
+	myTarget.scale_change(0.25);
 }
 
 void reset(void) {
@@ -90,7 +104,7 @@ void display() {
 	myBackground.drawGround(winWidth,winHeight);
 	myBackground.drawSky(winWidth,winHeight);
 	myLandscape.draw_landscape();
-	myTarget.draw(1.0,1.0);
+	myTarget.draw(1,0.2,0.2);
 	myBow.draw();
 
 	glFlush();

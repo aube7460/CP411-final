@@ -75,7 +75,7 @@ void Shape::rotate_relative(double x0, double y0, double z0, double rx, double r
 }
 
 void Shape::scale_change(GLfloat x) {
-	s += x;
+	s = x;
 }
 
 /**

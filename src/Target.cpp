@@ -10,12 +10,13 @@
 Target::Target(){
 	PI = 3.14159;
 	myTarget = new Sphere();
-	myTarget->radius=0.5;
+	myTarget->radius=0.25;
 
 }
 
-void Target::draw(GLfloat x, GLfloat y){
-
+void Target::draw(GLfloat x, GLfloat y,GLfloat radius){
+	myTarget->translate(x,y,0);
+	myTarget->radius = radius;
 	GLfloat matAmb1[] = { 0.7, 0.53, 0.3, 1.0 }; //ambient
 	GLfloat matDif1[] = { 0.76, 0.57, 0.16, 1.0 }; //diffuse
 	GLfloat matSpec1[] = { 1.0, 0.15, 0.0, 1.0 }; //specular
