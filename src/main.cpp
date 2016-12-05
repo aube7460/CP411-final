@@ -22,6 +22,7 @@
 #include "Landscape/Tree.hpp"
 #include "pixmap/RGBpixmap.hpp"
 #include "Bow.hpp"
+#include "Arrow.hpp"
 #include "Target.hpp"
 
 // declaring the size of the window
@@ -35,6 +36,7 @@ Tree myTree,myTree2,myTree3;
 RGBpixmap pix[6];   // make six pixmaps
 GLint textureArr[2];
 Bow myBow;
+Arrow myArrow;
 Target myTarget;
 
 //declare shader program object
@@ -110,6 +112,7 @@ void display() {
 	myBackground.drawSky(winWidth,winHeight);
 	myLandscape.draw_landscape();
 	myTarget.draw(1,0.2,0.2);
+	myArrow.draw();
 	myBow.draw();
 
 	glFlush();
@@ -138,6 +141,7 @@ void keyPressed (unsigned char key, int x, int y) {
 		printf("RIGHT\n");
 	}
 	else if (key == 'o') {
+		myArrow.fireArrow(true);
 		myBow.pullBow(true);
 		display();
 	}
@@ -148,6 +152,7 @@ void keyPressed (unsigned char key, int x, int y) {
 
 void keyUpPressed (unsigned char key, int x, int y) {
 	if (key == 'o') {
+		myArrow.fireArrow(false);
 		myBow.pullBow(false);
 		display();
 	}

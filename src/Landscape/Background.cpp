@@ -18,9 +18,9 @@ void Background::drawSky(int winWidth, int winHeight){
 	glBindTexture(GL_TEXTURE_2D,textureSkyID);
 	glBegin(GL_QUADS);
 		glTexCoord2f(0.0,0.0); glVertex2i(-10,0);
-		glTexCoord2f(1.0,0.0); glVertex2i(-10,10);
+		glTexCoord2f(0.0,1.0); glVertex2i(-10,10);
 		glTexCoord2f(1.0,1.0); glVertex2i(10, 10);
-		glTexCoord2f(0.0,1.0); glVertex2i(10, 0);
+		glTexCoord2f(1.0,0.0); glVertex2i(10, 0);
 	glEnd();
 	glDisable(GL_TEXTURE_2D);
 	glPopMatrix();
