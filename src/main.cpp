@@ -29,9 +29,10 @@ GLint winWidth = 800, winHeight = 800;
 
 // Variables for target position and arrow position
 GLfloat tarX = -0.4;
-GLfloat tarY=-0.6;
+GLfloat tarY = -0.6;
 GLfloat tarZ=-10.0;
 GLfloat arrowXPos,arrowYPos,arrowZPos;
+GLfloat transx,transy,transz;
 
 
 Background myBackground;
@@ -42,9 +43,6 @@ RGBpixmap pix[6];   // make six pixmaps
 Bow myBow;
 Arrow myArrow;
 Target myTarget;
-
-//declare shader program object
-GLuint ProgramObject;
 
 void init(void) {
 	glClearColor(1.0, 1.0, 1.0, 0.0);
@@ -102,8 +100,13 @@ void init(void) {
 }
 
 void reset(void) {
+	myCamera.eye.x = 0.0, myCamera.eye.y = 0.0, myCamera.eye.z = 10.0;
+	myTarget.myTarget->translate(0,0,0);
 	myArrow.reset();
 	myBow.reset();
+	arrowXPos = myArrow.arrowCoordinates[1][0];
+	arrowYPos = myArrow.arrowCoordinates[1][1];
+	arrowZPos = myArrow.arrowCoordinates[0][2];
 	glFlush();
 	glutPostRedisplay();
 }
@@ -162,6 +165,7 @@ void keyPressed (unsigned char key, int x, int y) {
 	if (key == 's') {
 		if (myCamera.eye.y < 1.25){ //DOWN
 			myCamera.rotate(1.0, 0.0,0.0, 0.5);
+			myTarget.myTarget->translate(0.0,-0.1,0.0);
 			myBow.rotate = 3;
 			myArrow.rotate = 3;
 		}
@@ -169,6 +173,7 @@ void keyPressed (unsigned char key, int x, int y) {
 	else if (key == 'a') { //LEFT
 		if (myCamera.eye.x <8){
 			myCamera.rotate(0.0, -1.0, 0.0, 0.5);
+			myTarget.myTarget->translate(-0.1,0.0,0.0);
 			myBow.rotate = 1;
 			myArrow.rotate = 1;
 		}
@@ -177,6 +182,7 @@ void keyPressed (unsigned char key, int x, int y) {
 	else if (key == 'w') { //UP
 		if (myCamera.eye.y > -3){
 			myCamera.rotate(-1.0, 0.0,0.0, 0.5);
+			myTarget.myTarget->translate(0.0,0.1,0.0);
 			myBow.rotate = 4;
 			myArrow.rotate = 4;
 		}
@@ -184,11 +190,14 @@ void keyPressed (unsigned char key, int x, int y) {
 	else if (key == 'd') { //RIGHT
 		if (myCamera.eye.x>-8){
 			myCamera.rotate(0.0, 1.0, 0.0,0.5);
+			myTarget.myTarget->translate(0.1,0.0,0.0);
+
 			myBow.rotate = 2;
 			myArrow.rotate = 2;
 		}
 	}
 	else if (key == 'o') {
+		myBow.rotate = 0;
 		myArrow.fireArrow(true);
 		myBow.pullBow(true);
 		display();

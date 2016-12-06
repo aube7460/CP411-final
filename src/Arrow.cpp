@@ -87,5 +87,9 @@ void Arrow::fireArrow(bool toggle) {
 
 void Arrow::reset() {
 	arrowCoordinates[0][0] = -0.5;	arrowCoordinates[0][1] = -1.65; arrowCoordinates[0][2] = 0.32;
-		arrowCoordinates[1][0] = -0.15;	arrowCoordinates[1][1] = -0.3; arrowCoordinates[1][2] = 0.22;
+	arrowCoordinates[1][0] = -0.15;	arrowCoordinates[1][1] = -0.3; arrowCoordinates[1][2] = 0.22;
+	fired = false;
+	rotate = 0;
+	xrotation = 0;
+	yrotation = 0;
 }

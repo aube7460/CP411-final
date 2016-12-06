@@ -10,7 +10,7 @@
 Target::Target(){
 	PI = 3.14159;
 	myTarget = new Sphere();
-	myTarget->radius=0.25;
+	myTarget->radius=0.3;
 
 }
 
