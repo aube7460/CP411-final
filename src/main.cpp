@@ -102,6 +102,8 @@ void init(void) {
 }
 
 void reset(void) {
+	myArrow.reset();
+	myBow.reset();
 	glFlush();
 	glutPostRedisplay();
 }
@@ -161,12 +163,14 @@ void keyPressed (unsigned char key, int x, int y) {
 		if (myCamera.eye.y < 1.25){ //DOWN
 			myCamera.rotate(1.0, 0.0,0.0, 0.5);
 			myBow.rotate = 3;
+			myArrow.rotate = 3;
 		}
 	}
 	else if (key == 'a') { //LEFT
 		if (myCamera.eye.x <8){
 			myCamera.rotate(0.0, -1.0, 0.0, 0.5);
 			myBow.rotate = 1;
+			myArrow.rotate = 1;
 		}
 
 	}
@@ -174,12 +178,14 @@ void keyPressed (unsigned char key, int x, int y) {
 		if (myCamera.eye.y > -3){
 			myCamera.rotate(-1.0, 0.0,0.0, 0.5);
 			myBow.rotate = 4;
+			myArrow.rotate = 4;
 		}
 	}
 	else if (key == 'd') { //RIGHT
 		if (myCamera.eye.x>-8){
 			myCamera.rotate(0.0, 1.0, 0.0,0.5);
 			myBow.rotate = 2;
+			myArrow.rotate = 2;
 		}
 	}
 	else if (key == 'o') {
@@ -187,6 +193,10 @@ void keyPressed (unsigned char key, int x, int y) {
 		myBow.pullBow(true);
 		display();
 	}
+	else if (key == 'r') {
+		reset();
+	}
+
 	else {
 		printf("Invalid keystroke\n");
 	}
@@ -204,18 +214,18 @@ void keyUpPressed (unsigned char key, int x, int y) {
 		animate_arrow(1);
 		display();
 	}
-	else if (key == 'a' ) {
-		myBow.rotate = 0;
-	}
-	else if (key =='d') {
-		myBow.rotate = 0;
-	}
-	else if (key == 'w') {
-		myBow.rotate = 0;
-	}
-	else if (key == 'a') {
-		myBow.rotate = 0;
-	}
+//	else if (key == 'a' ) {
+//		myBow.rotate = 0;
+//	}
+//	else if (key =='d') {
+//		myBow.rotate = 0;
+//	}
+//	else if (key == 'w') {
+//		myBow.rotate = 0;
+//	}
+//	else if (key == 'a') {
+//		myBow.rotate = 0;
+//	}
 }
 
 void reshape(int w, int h)

@@ -38,13 +38,15 @@ void Bow::draw() {
 		yrotation = 0;
 	}
 	else if (rotate == 1) {
-		if(yrotation > Y_MAX_BOW_ROTATE){
+		if (yrotation > Y_MAX_BOW_ROTATE){
 			yrotation -= 0.35;
 		}
 		glRotatef(yrotation, 0.0, 0.5, 0.0f); // Rotate our object around the y axis
 	}
 	else if (rotate == 2) {
-		yrotation += 0.35;
+		if (yrotation < Y_MAX_BOW_ROTATE) {
+			yrotation += 0.35;
+		}
 		glRotatef(yrotation, 0.0, 0.5, 0.0f); // Rotate our object around the y axis
 	}
 	else if (rotate == 3) {
@@ -118,5 +120,18 @@ void Bow::pullBow(bool toggle) {
 		// TO BE IMPLEMENTED
 		// fluid return to original position
 	}
+}
+
+void Bow::reset() {
+	bowCtrlPoints[0][0] = -0.5; bowCtrlPoints[0][1] = 1.0; bowCtrlPoints[0][2] = 0;
+	bowCtrlPoints[1][0] = -0.2; bowCtrlPoints[1][1] = -0.8; bowCtrlPoints[1][2] = 0;
+	bowCtrlPoints[2][0] = -0.2; bowCtrlPoints[2][1] = -1.0; bowCtrlPoints[2][2] = 0;
+	bowCtrlPoints[3][0] = -0.5; bowCtrlPoints[3][1] = -4.3; bowCtrlPoints[3][2] = 0.0;
+
+	// initial control points for the string
+	stringCtrlPoints[0][0] = -0.5; stringCtrlPoints[0][1] = 1.0; stringCtrlPoints[0][2] = 0;
+	stringCtrlPoints[1][0] = -0.5; stringCtrlPoints[1][1] = -1.85; stringCtrlPoints[1][2] = 0.0;
+	stringCtrlPoints[2][0] = -0.5; stringCtrlPoints[2][1] = -1.85; stringCtrlPoints[2][2] = 0.0;
+	stringCtrlPoints[3][0] = -0.5; stringCtrlPoints[3][1] = -4.3; stringCtrlPoints[3][2] = 0.0;
 }
 

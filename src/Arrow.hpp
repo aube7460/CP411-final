@@ -21,6 +21,9 @@ public:
 
 	GLfloat arrowCoordinates[2][3];
 	bool fired;
+	float rotate;
+	float xrotation;
+	float yrotation;
 	Arrow(); // initializer function
 	void draw();// draw function must be overwritten    - may need to include 'virtual' because it has to be overwritten
 

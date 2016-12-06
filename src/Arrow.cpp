@@ -3,17 +3,44 @@
 const float X_ARROW_INCREMENT = 0.005;
 const float Y_ARROW_INCREMENT = 0.004;
 const float MAXIMUM_ARROW_PULL = -1.30; // compared to control points of the bowstring
+const float X_MAX_STRING_ROTATE_DOWN = -6.2;
+const float X_MAX_STRING_ROTATE_UP = 11.2;
+const float Y_MAX_STRING_ROTATE = 39;
+
 
 Target arrowTarget;
 
 Arrow::Arrow() {
 	// initial points for the arrow
-	arrowCoordinates[0][0] = -0.63;	arrowCoordinates[0][1] = -1.35; arrowCoordinates[0][2] = 1;
-	arrowCoordinates[1][0] = -0.3;	arrowCoordinates[1][1] = -0.5; arrowCoordinates[1][2] = 0.1;
+	arrowCoordinates[0][0] = -0.5;	arrowCoordinates[0][1] = -1.65; arrowCoordinates[0][2] = 0.32;
+	arrowCoordinates[1][0] = -0.15;	arrowCoordinates[1][1] = -0.3; arrowCoordinates[1][2] = 0.22;
+
 	fired = false;
+	rotate = 0;
+	xrotation = 0;
+	yrotation = 0;
 }
 
 void Arrow::draw() {
+
+	if (rotate == 1) {
+		yrotation -= 0.35;
+		glRotatef(yrotation, 0.0, 0.5, 0.0f); // Rotate our object around the y axis
+	}
+	else if (rotate == 2) {
+		yrotation += 0.35;
+		glRotatef(yrotation, 0.0, 0.5, 0.0f); // Rotate our object around the y axis
+	}
+	else if (rotate == 3) {
+		xrotation -= 0.35;
+
+		glRotatef(xrotation, 0.5, 0.0, 0.0f); // Rotate our object around the x axis
+	}
+	else if (rotate == 4) {
+		xrotation += 0.35;
+		glRotatef(xrotation, 0.5, 0.0, 0.0f); // Rotate our object around the x axis
+	}
+
 	glColor3f(0,0,0);
 	glLineWidth((GLfloat)2);
 	glBegin(GL_LINE_STRIP);
@@ -54,9 +81,11 @@ void Arrow::fireArrow(bool toggle) {
 		// use direction vector and power to determine where the arrow ends
 		fired = true;
 		// resets the arrow position to default values
-/*
-		arrowCoordinates[0][0] = -0.63;	arrowCoordinates[0][1] = -1.35; arrowCoordinates[0][2] = 1;  // X Y Z of fletching
-		arrowCoordinates[1][0] = -0.3;	arrowCoordinates[1][1] = -0.5; arrowCoordinates[1][2] = 0.1; // X Y Z of head
-*/
+
 	}
+}
+
+void Arrow::reset() {
+	arrowCoordinates[0][0] = -0.5;	arrowCoordinates[0][1] = -1.65; arrowCoordinates[0][2] = 0.32;
+		arrowCoordinates[1][0] = -0.15;	arrowCoordinates[1][1] = -0.3; arrowCoordinates[1][2] = 0.22;
 }
