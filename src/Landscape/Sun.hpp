@@ -22,7 +22,7 @@ extern GLfloat light0_position[];
 class Sun : public Shape {
 
 public:
-	GLfloat I, Rd, Ia, Ra;
+	GLfloat Rd, Ia, Ra;
 	Sphere* mySun;
 
 	Sun();

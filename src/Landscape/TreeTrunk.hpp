@@ -10,7 +10,6 @@
 
 #include <GL/glut.h>
 #include "../Camera.hpp"
-#include "../Light.hpp"
 #include "../Shape.hpp"
 
 class TreeTrunk:public Shape{

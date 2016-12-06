@@ -15,26 +15,32 @@
 #include "glaux.h" // for reading bmp files
 #include "Camera.hpp"
 #include "Matrix.hpp"
-#include "Light.hpp"
 #include "Landscape/Landscape.hpp"
 #include "Landscape/Background.hpp"
 #include "Landscape/TreeBody.hpp"
 #include "Landscape/Tree.hpp"
 #include "pixmap/RGBpixmap.hpp"
 #include "Bow.hpp"
+#include "Arrow.hpp"
 #include "Target.hpp"
 
 // declaring the size of the window
 GLint winWidth = 800, winHeight = 800;
 
+// Variables for target position and arrow position
+GLfloat tarX = -0.4;
+GLfloat tarY=-0.6;
+GLfloat tarZ=-10.0;
+GLfloat arrowXPos,arrowYPos,arrowZPos;
+
+
 Background myBackground;
 Camera myCamera;
 Landscape myLandscape;
-Light myLight;
 Tree myTree,myTree2,myTree3;
 RGBpixmap pix[6];   // make six pixmaps
-GLint textureArr[2];
 Bow myBow;
+Arrow myArrow;
 Target myTarget;
 
 //declare shader program object
@@ -42,7 +48,6 @@ GLuint ProgramObject;
 
 void init(void) {
 	glClearColor(1.0, 1.0, 1.0, 0.0);
-	myLight.translate(1.5,1.5,1.5);
 
 	myCamera.setProjectionMatrix();
 
@@ -84,6 +89,8 @@ void init(void) {
 	myLandscape.list[2] -> translate(-1.5,-0.5,0);
 	myLandscape.list[3] -> translate(-2.5,-1,0);
 
+	myTarget.myTarget->translate(tarX,tarY,tarZ);
+
 	Sun* sunObj = (Sun*) myLandscape.list[0];
 	sunObj->mySun->textureID=5;
 
@@ -109,11 +116,35 @@ void display() {
 	myBackground.drawGround(winWidth,winHeight);
 	myBackground.drawSky(winWidth,winHeight);
 	myLandscape.draw_landscape();
-	myTarget.draw(1,0.2,0.2);
+	myTarget.draw(tarX,tarY,tarZ,0.3);
+	myArrow.draw();
 	myBow.draw();
 
 	glFlush();
 	glutSwapBuffers();
+}
+
+void animate_arrow(int keepGoing) {
+	if ((arrowXPos<(tarX+myTarget.myTarget->radius)&&
+		(arrowXPos>(tarX-myTarget.myTarget->radius)))&&
+		((arrowYPos<(tarY+myTarget.myTarget->radius))&&
+		(arrowYPos>(tarY-myTarget.myTarget->radius)))&&
+		arrowZPos <= tarZ){
+		printf("TARGET HIT\n");
+		myArrow.fired = false;
+	}else {
+		if (arrowZPos < -15){
+			myArrow.fired = false;
+			printf("MISSED");
+		}
+	}
+	arrowZPos = arrowZPos - 0.5;
+	myArrow.translate(0,0,-0.5);
+
+    if (keepGoing && myArrow.fired) {
+    	glutTimerFunc(40, animate_arrow, 1);  // callback every 40 ms
+    }
+    glutPostRedisplay();
 }
 
 void winReshapeFcn(GLint newWidth, GLint newHeight) {
@@ -125,30 +156,48 @@ void winReshapeFcn(GLint newWidth, GLint newHeight) {
 }
 
 void keyPressed (unsigned char key, int x, int y) {
-	if (key == 'w') {
-		printf("UP\n");
+	if (key == 's') {
+		if (myCamera.eye.y < 1.25){ //DOWN
+			myCamera.rotate(1.0, 0.0,0.0, 0.5);
+		}
 	}
-	else if (key == 'a') {
-		printf("LEFT\n");
+	else if (key == 'a') { //LEFT
+		if (myCamera.eye.x <8){
+			myCamera.rotate(0.0, -1.0, 0.0, 0.5);
+		}
+
 	}
-	else if (key == 's') {
-		printf("DOWN\n");
+	else if (key == 'w') { //UP
+		if (myCamera.eye.y > -3){
+			myCamera.rotate(-1.0, 0.0,0.0, 0.5);
+
+		}
 	}
-	else if (key == 'd') {
-		printf("RIGHT\n");
+	else if (key == 'd') { //RIGHT
+		if (myCamera.eye.x>-8){
+			myCamera.rotate(0.0, 1.0, 0.0,0.5);
+		}
 	}
 	else if (key == 'o') {
+		myArrow.fireArrow(true);
 		myBow.pullBow(true);
 		display();
 	}
 	else {
 		printf("Invalid keystroke\n");
 	}
+	glutPostRedisplay();
 }
 
 void keyUpPressed (unsigned char key, int x, int y) {
 	if (key == 'o') {
+		arrowXPos = myArrow.arrowCoordinates[1][0];
+		arrowYPos = myArrow.arrowCoordinates[1][1];
+		arrowZPos = myArrow.arrowCoordinates[0][2];
+		myArrow.fireArrow(false);
 		myBow.pullBow(false);
+
+		animate_arrow(1);
 		display();
 	}
 }

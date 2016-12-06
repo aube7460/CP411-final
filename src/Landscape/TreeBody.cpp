@@ -7,19 +7,17 @@
 
 #include "TreeBody.hpp"
 
-extern Sun mySun;
-
 TreeBody::TreeBody(){
 	vertex[0][0] = -0.5; vertex[0][1] = 0; vertex[0][2] =  0.5;
 	vertex[1][0] =  0.5; vertex[1][1] = 0; vertex[1][2] =  0.5;
 	vertex[2][0] =  0.5; vertex[2][1] = 0; vertex[2][2] = -0.5;
 	vertex[3][0] = -0.5; vertex[3][1] = 0; vertex[3][2] = -0.5;
-	vertex[4][0] =  0.5; vertex[4][1] = 2; vertex[4][2] =  0.5;
+	vertex[4][0] =  0; vertex[4][1] = 2; vertex[4][2] =  0;
 
 	face[0][0] = 1;face[0][1] = 4;face[0][2] = 0;
-	face[1][0] = 2;face[1][1] = 4;face[1][2] = 1;
-	face[2][0] = 3;face[2][1] = 4;face[2][2] = 2;
-	face[3][0] = 0;face[3][1] = 4;face[3][2] = 3;
+	face[1][0] = 0;face[1][1] = 4;face[1][2] = 2;
+	face[2][0] = 2;face[2][1] = 4;face[2][2] = 3;
+	face[3][0] = 3;face[3][1] = 4;face[3][2] = 1;
 
 	TreeBody_face_norm_mc[0][0] = 0.0,TreeBody_face_norm_mc[0][1] = 0.0,TreeBody_face_norm_mc[0][2] = -1.0,
 	TreeBody_face_norm_mc[1][0] = 1.0, TreeBody_face_norm_mc[1][1] = 0.0, TreeBody_face_norm_mc[1][2] = 0.0;
