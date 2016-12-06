@@ -15,7 +15,7 @@ Arrow::Arrow() {
 	arrowCoordinates[0][0] = -0.5;	arrowCoordinates[0][1] = -1.65; arrowCoordinates[0][2] = 0.32;
 	arrowCoordinates[1][0] = -0.15;	arrowCoordinates[1][1] = -0.3; arrowCoordinates[1][2] = 0.22;
 
-	fired = false;
+	fired = false; 
 	rotate = 0;
 	xrotation = 0;
 	yrotation = 0;
@@ -62,10 +62,7 @@ void Arrow::translate(GLfloat tx, GLfloat ty, GLfloat tz){ //w.r.p.t WC
 	arrowCoordinates[1][2] += tz;
 }
 
-// TO BE IMPLEMENTED
-// modify fireArrow() to accept:
-// 		a 2D array - to hold the direction vector of the arrow
-//		float - to determine the power of the arrow
+
 void Arrow::fireArrow(bool toggle) {
 	if (toggle) {
 		if(arrowCoordinates[0][0] > MAXIMUM_ARROW_PULL) {
@@ -77,14 +74,11 @@ void Arrow::fireArrow(bool toggle) {
 		}
 	}
 	else {
-		// TO BE IMPLEMENTED
-		// use direction vector and power to determine where the arrow ends
 		fired = true;
-		// resets the arrow position to default values
-
 	}
 }
 
+// resets arrow coordinates to default values
 void Arrow::reset() {
 	arrowCoordinates[0][0] = -0.5;	arrowCoordinates[0][1] = -1.65; arrowCoordinates[0][2] = 0.32;
 		arrowCoordinates[1][0] = -0.15;	arrowCoordinates[1][1] = -0.3; arrowCoordinates[1][2] = 0.22;
