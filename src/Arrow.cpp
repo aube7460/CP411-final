@@ -4,10 +4,13 @@ const float X_ARROW_INCREMENT = 0.005;
 const float Y_ARROW_INCREMENT = 0.004;
 const float MAXIMUM_ARROW_PULL = -1.30; // compared to control points of the bowstring
 
+Target arrowTarget;
+
 Arrow::Arrow() {
 	// initial points for the arrow
 	arrowCoordinates[0][0] = -0.63;	arrowCoordinates[0][1] = -1.35; arrowCoordinates[0][2] = 1;
 	arrowCoordinates[1][0] = -0.3;	arrowCoordinates[1][1] = -0.5; arrowCoordinates[1][2] = 0.1;
+	fired = false;
 }
 
 void Arrow::draw() {
@@ -39,9 +42,31 @@ void Arrow::fireArrow(bool toggle) {
 	else {
 		// TO BE IMPLEMENTED
 		// use direction vector and power to determine where the arrow ends
-
+		fired = true;
 		// resets the arrow position to default values
-		arrowCoordinates[0][0] = -0.63;	arrowCoordinates[0][1] = -1.35; arrowCoordinates[0][2] = 1;
-		arrowCoordinates[1][0] = -0.3;	arrowCoordinates[1][1] = -0.5; arrowCoordinates[1][2] = 0.1;
+/*
+		arrowCoordinates[0][0] = -0.63;	arrowCoordinates[0][1] = -1.35; arrowCoordinates[0][2] = 1;  // X Y Z of fletching
+		arrowCoordinates[1][0] = -0.3;	arrowCoordinates[1][1] = -0.5; arrowCoordinates[1][2] = 0.1; // X Y Z of head
+*/
+	}
+	if (fired){
+		printf("arrow Z cord is %f ",arrowCoordinates[0][2]);
+		printf("target x cord is %f \n",arrowTarget.tarX);
+		printf("target y cord is %f \n",arrowTarget.tarY);
+		printf("target Z cord is %f \n",arrowTarget.tarZ);
+
+		while (arrowCoordinates[0][2] > -5){
+			if ((arrowCoordinates[1][0]<(arrowTarget.tarX+arrowTarget.myTarget->radius)&&
+				(arrowCoordinates[1][0]>(arrowTarget.tarX-arrowTarget.myTarget->radius)))&&
+				(arrowCoordinates[1][1]<(arrowTarget.tarY+arrowTarget.myTarget->radius))&&
+				(arrowCoordinates[1][1]>(arrowTarget.tarY-arrowTarget.myTarget->radius))){
+				printf("TARGET HIT");
+			}else {
+				printf("MISSED");
+			}
+			arrowCoordinates[0][2]= arrowCoordinates[0][2]-0.005;
+			printf("arrow Z cord is %f\n",arrowCoordinates[0][2]);
+			glutPostRedisplay();
+		}
 	}
 }

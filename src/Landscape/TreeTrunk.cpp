@@ -31,9 +31,8 @@ TreeTrunk::TreeTrunk(){
 }
 
 void TreeTrunk::draw_face(int i){
-	//glEnable(GL_TEXTURE_2D);
-	//glBindTexture(GL_TEXTURE_2D, textureID);
-	glColor3f(0.55,0.27,0.07);
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, textureID);
 	glBegin(GL_QUADS);
 		glTexCoord2f(0.0,0.0);glVertex3fv(&vertex[face[i][0]][0]);
 		glTexCoord2f(1.0,0.0);glVertex3fv(&vertex[face[i][1]][0]);
@@ -42,7 +41,7 @@ void TreeTrunk::draw_face(int i){
 	glEnd();
 	glColor4f(1.f, 1.f, 1.f, 1.f);
 
-	//glDisable(GL_TEXTURE_2D);
+	glDisable(GL_TEXTURE_2D);
 
 }
 

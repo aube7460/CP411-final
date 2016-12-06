@@ -14,8 +14,11 @@ Target::Target(){
 
 }
 
-void Target::draw(GLfloat x, GLfloat y,GLfloat radius){
-	//myTarget->translate(x,y,0);
+void Target::draw(GLfloat x, GLfloat y,GLfloat z,GLfloat radius){
+	//myTarget->translate(x,y,z);
+	tarX = x;
+	tarY = y;
+	tarZ = z;
 	myTarget->radius = radius;
 	GLfloat matAmb1[] = { 0.7, 0.53, 0.3, 1.0 }; //ambient
 	GLfloat matDif1[] = { 0.76, 0.57, 0.16, 1.0 }; //diffuse
