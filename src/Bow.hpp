@@ -18,6 +18,9 @@ class Bow {
 public:
 	GLfloat bowCtrlPoints[4][3];
 	GLfloat stringCtrlPoints[4][3];
+	float rotate;
+	float xrotation;
+	float yrotation;
 
 	Bow(); // initializer function
 
@@ -29,6 +32,7 @@ public:
 	void pullBow(bool); // adjust control points for the bow
 
 	void reset(); // reset bow
+
 };
 
 #endif

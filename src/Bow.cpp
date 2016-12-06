@@ -7,23 +7,59 @@ const float Y_STRING_ANCHOR_INCREMENT = 0.004;
 const float X_STRING_CONTROL_INCREMENT = 0.0072;
 const float Y_STRING_CONTROL_INCREMENT = 0.0072;
 const float MAXIMUM_BOW_PULL = -1.475995; // compared to control points of the bowstring
+const float X_MAX_BOW_ROTATE_DOWN = -6.2;
+const float X_MAX_BOW_ROTATE_UP = 11.2;
+const float Y_MAX_BOW_ROTATE = 39;
 
 Bow::Bow(){
 	// initial control points for the bow
-	bowCtrlPoints[0][0] = -0.5; bowCtrlPoints[0][1] = 1.0; bowCtrlPoints[0][2] = 2;
-	bowCtrlPoints[1][0] = -0.2; bowCtrlPoints[1][1] = -0.8; bowCtrlPoints[1][2] = 1;
-	bowCtrlPoints[2][0] = -0.2; bowCtrlPoints[2][1] = -1.0; bowCtrlPoints[2][2] = 1;
+	bowCtrlPoints[0][0] = -0.5; bowCtrlPoints[0][1] = 1.0; bowCtrlPoints[0][2] = 0;
+	bowCtrlPoints[1][0] = -0.2; bowCtrlPoints[1][1] = -0.8; bowCtrlPoints[1][2] = 0;
+	bowCtrlPoints[2][0] = -0.2; bowCtrlPoints[2][1] = -1.0; bowCtrlPoints[2][2] = 0;
 	bowCtrlPoints[3][0] = -0.5; bowCtrlPoints[3][1] = -4.3; bowCtrlPoints[3][2] = 0.0;
 
 	// initial control points for the string
-	stringCtrlPoints[0][0] = -0.5; stringCtrlPoints[0][1] = 1.0; stringCtrlPoints[0][2] = 2;
-	stringCtrlPoints[1][0] = -0.5; stringCtrlPoints[1][1] = -1.85; stringCtrlPoints[1][2] = 1;
-	stringCtrlPoints[2][0] = -0.5; stringCtrlPoints[2][1] = -1.85; stringCtrlPoints[2][2] = 1;
+	stringCtrlPoints[0][0] = -0.5; stringCtrlPoints[0][1] = 1.0; stringCtrlPoints[0][2] = 0;
+	stringCtrlPoints[1][0] = -0.5; stringCtrlPoints[1][1] = -1.85; stringCtrlPoints[1][2] = 0.0;
+	stringCtrlPoints[2][0] = -0.5; stringCtrlPoints[2][1] = -1.85; stringCtrlPoints[2][2] = 0.0;
 	stringCtrlPoints[3][0] = -0.5; stringCtrlPoints[3][1] = -4.3; stringCtrlPoints[3][2] = 0.0;
+
+	rotate = 0;
+	xrotation = 0;
+	yrotation = 0;
+
 }
 
 void Bow::draw() {
+
 	// draw bow
+	if (rotate == 0) {
+		xrotation = 0;
+		yrotation = 0;
+	}
+	else if (rotate == 1) {
+		if(yrotation > Y_MAX_BOW_ROTATE){
+			yrotation -= 0.35;
+		}
+		glRotatef(yrotation, 0.0, 0.5, 0.0f); // Rotate our object around the y axis
+	}
+	else if (rotate == 2) {
+		yrotation += 0.35;
+		glRotatef(yrotation, 0.0, 0.5, 0.0f); // Rotate our object around the y axis
+	}
+	else if (rotate == 3) {
+		if (xrotation > X_MAX_BOW_ROTATE_DOWN) {
+			xrotation -= 0.35;
+		}
+		glRotatef(xrotation, 0.5, 0.0, 0.0f); // Rotate our object around the x axis
+	}
+	else if (rotate == 4) {
+		if (xrotation < X_MAX_BOW_ROTATE_UP) {
+			xrotation += 0.35;
+		}
+		glRotatef(xrotation, 0.5, 0.0, 0.0f); // Rotate our object around the x axis
+	}
+
 	glShadeModel(GL_FLAT);
 	glMap1f(GL_MAP1_VERTEX_3, 0.0, 1.0, 3, 4, &bowCtrlPoints[0][0]);
 	glEnable(GL_MAP1_VERTEX_3);
@@ -68,29 +104,19 @@ void Bow::pullBow(bool toggle) {
 	}
 	else {
 		// initial control points for the bow
-		bowCtrlPoints[0][0] = -0.5; bowCtrlPoints[0][1] = 1.0; bowCtrlPoints[0][2] = 2;
-		bowCtrlPoints[1][0] = -0.2; bowCtrlPoints[1][1] = -0.8; bowCtrlPoints[1][2] = 1;
-		bowCtrlPoints[2][0] = -0.2; bowCtrlPoints[2][1] = -1.0; bowCtrlPoints[2][2] = 1;
+		bowCtrlPoints[0][0] = -0.5; bowCtrlPoints[0][1] = 1.0; bowCtrlPoints[0][2] = 0.0;
+		bowCtrlPoints[1][0] = -0.2; bowCtrlPoints[1][1] = -0.8; bowCtrlPoints[1][2] = 0.0;
+		bowCtrlPoints[2][0] = -0.2; bowCtrlPoints[2][1] = -1.0; bowCtrlPoints[2][2] = 0.0;
 		bowCtrlPoints[3][0] = -0.5; bowCtrlPoints[3][1] = -4.3; bowCtrlPoints[3][2] = 0.0;
 
 		// initial control points for the string
-		stringCtrlPoints[0][0] = -0.5; stringCtrlPoints[0][1] = 1.0; stringCtrlPoints[0][2] = 2;
-		stringCtrlPoints[1][0] = -0.5; stringCtrlPoints[1][1] = -1.85; stringCtrlPoints[1][2] = 1;
-		stringCtrlPoints[2][0] = -0.5; stringCtrlPoints[2][1] = -1.85; stringCtrlPoints[2][2] = 1;
+		stringCtrlPoints[0][0] = -0.5; stringCtrlPoints[0][1] = 1.0; stringCtrlPoints[0][2] = 0.0;
+		stringCtrlPoints[1][0] = -0.5; stringCtrlPoints[1][1] = -1.85; stringCtrlPoints[1][2] = 0.0;
+		stringCtrlPoints[2][0] = -0.5; stringCtrlPoints[2][1] = -1.85; stringCtrlPoints[2][2] = 0.0;
 		stringCtrlPoints[3][0] = -0.5; stringCtrlPoints[3][1] = -4.3; stringCtrlPoints[3][2] = 0.0;
 
 		// TO BE IMPLEMENTED
 		// fluid return to original position
-
-
 	}
 }
-
-/* The following code displays the control points as dots. */
-//	   glPointSize(5.0);
-//	   glColor3f(1.0, 0, 0);
-//	   glBegin(GL_POINTS);
-//	      for (i = 0; i < 4; i++)
-//	         glVertex3fv(&ctrlpoints[i][0]);
-//	   glEnd();
 

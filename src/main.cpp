@@ -112,6 +112,7 @@ void close(void) {
 
 void display() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glLoadIdentity();
 	myCamera.setProjectionMatrix();
 	myBackground.drawGround(winWidth,winHeight);
 	myBackground.drawSky(winWidth,winHeight);
@@ -159,23 +160,26 @@ void keyPressed (unsigned char key, int x, int y) {
 	if (key == 's') {
 		if (myCamera.eye.y < 1.25){ //DOWN
 			myCamera.rotate(1.0, 0.0,0.0, 0.5);
+			myBow.rotate = 3;
 		}
 	}
 	else if (key == 'a') { //LEFT
 		if (myCamera.eye.x <8){
 			myCamera.rotate(0.0, -1.0, 0.0, 0.5);
+			myBow.rotate = 1;
 		}
 
 	}
 	else if (key == 'w') { //UP
 		if (myCamera.eye.y > -3){
 			myCamera.rotate(-1.0, 0.0,0.0, 0.5);
-
+			myBow.rotate = 4;
 		}
 	}
 	else if (key == 'd') { //RIGHT
 		if (myCamera.eye.x>-8){
 			myCamera.rotate(0.0, 1.0, 0.0,0.5);
+			myBow.rotate = 2;
 		}
 	}
 	else if (key == 'o') {
@@ -199,6 +203,18 @@ void keyUpPressed (unsigned char key, int x, int y) {
 
 		animate_arrow(1);
 		display();
+	}
+	else if (key == 'a' ) {
+		myBow.rotate = 0;
+	}
+	else if (key =='d') {
+		myBow.rotate = 0;
+	}
+	else if (key == 'w') {
+		myBow.rotate = 0;
+	}
+	else if (key == 'a') {
+		myBow.rotate = 0;
 	}
 }
 
