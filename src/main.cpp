@@ -39,6 +39,9 @@ Target myTarget;
 //declare shader program object
 GLuint ProgramObject;
 
+// Variables for target position and arrow position
+GLfloat arrowXPos,arrowYPos,arrowZPos,tarX,tarY,tarZ;
+
 void init(void) {
 	glClearColor(1.0, 1.0, 1.0, 0.0);
 
@@ -107,12 +110,39 @@ void display() {
 	myBackground.drawGround(winWidth,winHeight);
 	myBackground.drawSky(winWidth,winHeight);
 	myLandscape.draw_landscape();
-	myTarget.draw(1,0.2,0,0.2);
+	tarX = 1.0;tarY=0.2;tarZ=0.0;
+	myTarget.draw(tarX,tarY,tarZ,0.2);
 	myArrow.draw();
 	myBow.draw();
 
 	glFlush();
 	glutSwapBuffers();
+}
+
+void animate_arrow(int keepGoing) {
+	printf("Target pos: %f, %f, %f Radius: %f\n",tarX,tarY,tarZ,myTarget.myTarget->radius);
+	printf("Arrow pos: %f, %f, %f\n",arrowXPos,arrowYPos,arrowZPos);
+
+	if ((arrowXPos<(tarX+myTarget.myTarget->radius)&&
+		(arrowXPos>(tarX-myTarget.myTarget->radius)))&&
+		((arrowYPos<(tarY+myTarget.myTarget->radius))&&
+		(arrowYPos>(tarY-myTarget.myTarget->radius)))&&
+		arrowZPos <= tarZ){
+		printf("TARGET HIT");
+		myArrow.fired = false;
+	}else {
+		if (arrowZPos < -2){
+			myArrow.fired = false;
+			printf("MISSED");
+		}
+	}
+
+	arrowZPos = arrowZPos - 0.5;
+
+    if (keepGoing && myArrow.fired) {
+    	glutTimerFunc(40, animate_arrow, 1);  // callback every 40 ms
+    }
+    glutPostRedisplay();
 }
 
 void winReshapeFcn(GLint newWidth, GLint newHeight) {
@@ -159,8 +189,13 @@ void keyPressed (unsigned char key, int x, int y) {
 
 void keyUpPressed (unsigned char key, int x, int y) {
 	if (key == 'o') {
+		arrowXPos = myArrow.arrowCoordinates[1][0];
+		arrowYPos = myArrow.arrowCoordinates[1][1];
+		arrowZPos = myArrow.arrowCoordinates[0][2];
 		myArrow.fireArrow(false);
 		myBow.pullBow(false);
+
+		animate_arrow(1);
 		display();
 	}
 }

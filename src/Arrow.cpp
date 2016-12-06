@@ -49,24 +49,4 @@ void Arrow::fireArrow(bool toggle) {
 		arrowCoordinates[1][0] = -0.3;	arrowCoordinates[1][1] = -0.5; arrowCoordinates[1][2] = 0.1; // X Y Z of head
 */
 	}
-	if (fired){
-		printf("arrow Z cord is %f ",arrowCoordinates[0][2]);
-		printf("target x cord is %f \n",arrowTarget.tarX);
-		printf("target y cord is %f \n",arrowTarget.tarY);
-		printf("target Z cord is %f \n",arrowTarget.tarZ);
-
-		while (arrowCoordinates[0][2] > -5){
-			if ((arrowCoordinates[1][0]<(arrowTarget.tarX+arrowTarget.myTarget->radius)&&
-				(arrowCoordinates[1][0]>(arrowTarget.tarX-arrowTarget.myTarget->radius)))&&
-				(arrowCoordinates[1][1]<(arrowTarget.tarY+arrowTarget.myTarget->radius))&&
-				(arrowCoordinates[1][1]>(arrowTarget.tarY-arrowTarget.myTarget->radius))){
-				printf("TARGET HIT");
-			}else {
-				printf("MISSED");
-			}
-			arrowCoordinates[0][2]= arrowCoordinates[0][2]-0.005;
-			printf("arrow Z cord is %f\n",arrowCoordinates[0][2]);
-			glutPostRedisplay();
-		}
-	}
 }
