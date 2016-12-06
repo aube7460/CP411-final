@@ -21,8 +21,18 @@ void Arrow::draw() {
 		glVertex3f(arrowCoordinates[1][0], arrowCoordinates[1][1], arrowCoordinates[1][2]);
 	glEnd();
 
-
 	glColor4f(1.f, 1.f, 1.f, 1.f);
+}
+
+void Arrow::translate(GLfloat tx, GLfloat ty, GLfloat tz){ //w.r.p.t WC
+	arrowCoordinates[0][0] += tx;
+	arrowCoordinates[1][0] += tx;
+
+	arrowCoordinates[0][1] += ty;
+	arrowCoordinates[1][1] += ty;
+
+	arrowCoordinates[0][2] += tz;
+	arrowCoordinates[1][2] += tz;
 }
 
 // TO BE IMPLEMENTED

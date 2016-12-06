@@ -29,6 +29,7 @@ public:
 	// 		a 2D array - to hold the direction vector of the arrow
 	//		float - to determine the power of the arrow
 	void fireArrow(bool); // fire arrow
+	void translate(GLfloat tx, GLfloat ty, GLfloat tz);
 
 	void reset(); // reload arrow
 };

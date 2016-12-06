@@ -110,7 +110,7 @@ void display() {
 	myBackground.drawGround(winWidth,winHeight);
 	myBackground.drawSky(winWidth,winHeight);
 	myLandscape.draw_landscape();
-	tarX = 1.0;tarY=0.2;tarZ=0.0;
+	tarX = -0.4;tarY=-0.6;tarZ=0.0;
 	myTarget.draw(tarX,tarY,tarZ,0.2);
 	myArrow.draw();
 	myBow.draw();
@@ -137,7 +137,9 @@ void animate_arrow(int keepGoing) {
 		}
 	}
 
-	arrowZPos = arrowZPos - 0.5;
+	arrowZPos = arrowZPos - 0.25;
+
+	myArrow.translate(0,0,-0.75);
 
     if (keepGoing && myArrow.fired) {
     	glutTimerFunc(40, animate_arrow, 1);  // callback every 40 ms
