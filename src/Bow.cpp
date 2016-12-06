@@ -32,36 +32,36 @@ Bow::Bow(){
 
 void Bow::draw() {
 
-	// draw bow
 	if (rotate == 0) {
 		xrotation = 0;
 		yrotation = 0;
 	}
 	else if (rotate == 1) {
-		if (yrotation > Y_MAX_BOW_ROTATE){
+		if (yrotation > Y_MAX_BOW_ROTATE){ // set limit for bow rotation in negative y axis
 			yrotation -= 0.35;
 		}
 		glRotatef(yrotation, 0.0, 0.5, 0.0f); // Rotate our object around the y axis
 	}
 	else if (rotate == 2) {
-		if (yrotation < Y_MAX_BOW_ROTATE) {
+		if (yrotation < Y_MAX_BOW_ROTATE) { // set limit for bow rotation in positive y axis
 			yrotation += 0.35;
 		}
 		glRotatef(yrotation, 0.0, 0.5, 0.0f); // Rotate our object around the y axis
 	}
 	else if (rotate == 3) {
-		if (xrotation > X_MAX_BOW_ROTATE_DOWN) {
+		if (xrotation > X_MAX_BOW_ROTATE_DOWN) { // set limit for bow rotation in negative x axis
 			xrotation -= 0.35;
 		}
 		glRotatef(xrotation, 0.5, 0.0, 0.0f); // Rotate our object around the x axis
 	}
 	else if (rotate == 4) {
-		if (xrotation < X_MAX_BOW_ROTATE_UP) {
+		if (xrotation < X_MAX_BOW_ROTATE_UP) { // set limit for bow rotation in positive x axis
 			xrotation += 0.35;
 		}
 		glRotatef(xrotation, 0.5, 0.0, 0.0f); // Rotate our object around the x axis
 	}
 
+	// draw bow
 	glShadeModel(GL_FLAT);
 	glMap1f(GL_MAP1_VERTEX_3, 0.0, 1.0, 3, 4, &bowCtrlPoints[0][0]);
 	glEnable(GL_MAP1_VERTEX_3);
@@ -117,12 +117,11 @@ void Bow::pullBow(bool toggle) {
 		stringCtrlPoints[2][0] = -0.5; stringCtrlPoints[2][1] = -1.85; stringCtrlPoints[2][2] = 0.0;
 		stringCtrlPoints[3][0] = -0.5; stringCtrlPoints[3][1] = -4.3; stringCtrlPoints[3][2] = 0.0;
 
-		// TO BE IMPLEMENTED
-		// fluid return to original position
 	}
 }
 
 void Bow::reset() {
+	// initial control points for the bow
 	bowCtrlPoints[0][0] = -0.5; bowCtrlPoints[0][1] = 1.0; bowCtrlPoints[0][2] = 0;
 	bowCtrlPoints[1][0] = -0.2; bowCtrlPoints[1][1] = -0.8; bowCtrlPoints[1][2] = 0;
 	bowCtrlPoints[2][0] = -0.2; bowCtrlPoints[2][1] = -1.0; bowCtrlPoints[2][2] = 0;
