@@ -27,6 +27,13 @@
 // declaring the size of the window
 GLint winWidth = 800, winHeight = 800;
 
+// Variables for target position and arrow position
+GLfloat tarX = -0.4;
+GLfloat tarY=-0.6;
+GLfloat tarZ=-10.0;
+GLfloat arrowXPos,arrowYPos,arrowZPos;
+
+
 Background myBackground;
 Camera myCamera;
 Landscape myLandscape;
@@ -38,9 +45,6 @@ Target myTarget;
 
 //declare shader program object
 GLuint ProgramObject;
-
-// Variables for target position and arrow position
-GLfloat arrowXPos,arrowYPos,arrowZPos,tarX,tarY,tarZ;
 
 void init(void) {
 	glClearColor(1.0, 1.0, 1.0, 0.0);
@@ -85,6 +89,8 @@ void init(void) {
 	myLandscape.list[2] -> translate(-1.5,-0.5,0);
 	myLandscape.list[3] -> translate(-2.5,-1,0);
 
+	myTarget.myTarget->translate(tarX,tarY,tarZ);
+
 	Sun* sunObj = (Sun*) myLandscape.list[0];
 	sunObj->mySun->textureID=5;
 
@@ -110,8 +116,7 @@ void display() {
 	myBackground.drawGround(winWidth,winHeight);
 	myBackground.drawSky(winWidth,winHeight);
 	myLandscape.draw_landscape();
-	tarX = -0.4;tarY=-0.6;tarZ=0.0;
-	myTarget.draw(tarX,tarY,tarZ,0.2);
+	myTarget.draw(tarX,tarY,tarZ,0.3);
 	myArrow.draw();
 	myBow.draw();
 
@@ -120,26 +125,21 @@ void display() {
 }
 
 void animate_arrow(int keepGoing) {
-	printf("Target pos: %f, %f, %f Radius: %f\n",tarX,tarY,tarZ,myTarget.myTarget->radius);
-	printf("Arrow pos: %f, %f, %f\n",arrowXPos,arrowYPos,arrowZPos);
-
 	if ((arrowXPos<(tarX+myTarget.myTarget->radius)&&
 		(arrowXPos>(tarX-myTarget.myTarget->radius)))&&
 		((arrowYPos<(tarY+myTarget.myTarget->radius))&&
 		(arrowYPos>(tarY-myTarget.myTarget->radius)))&&
 		arrowZPos <= tarZ){
-		printf("TARGET HIT");
+		printf("TARGET HIT\n");
 		myArrow.fired = false;
 	}else {
-		if (arrowZPos < -2){
+		if (arrowZPos < -15){
 			myArrow.fired = false;
 			printf("MISSED");
 		}
 	}
-
-	arrowZPos = arrowZPos - 0.25;
-
-	myArrow.translate(0,0,-0.75);
+	arrowZPos = arrowZPos - 0.5;
+	myArrow.translate(0,0,-0.5);
 
     if (keepGoing && myArrow.fired) {
     	glutTimerFunc(40, animate_arrow, 1);  // callback every 40 ms

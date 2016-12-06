@@ -7,9 +7,6 @@
 
 #include "TreeTrunk.hpp"
 
-extern Camera myCamera;
-//extern Light myLight;
-
 TreeTrunk::TreeTrunk(){
 	vertex[0][0] = -0.5; vertex[0][1] = -1; vertex[0][2] = -0.5;
 	vertex[1][0] = -0.5; vertex[1][1] =  1; vertex[1][2] = -0.5;
@@ -54,19 +51,3 @@ void TreeTrunk::draw(){
 	}
 	glPopMatrix();
 }
-
-/*bool TreeTrunk::isBackface(int i){
-	GLfloat v[4];
-	v[0] = treeTrunk_face_norm_mc[i][0];
-	v[1] = treeTrunk_face_norm_mc[i][1];
-	v[2] = treeTrunk_face_norm_mc[i][2];
-	v[3] = 0.0;
-	this->MC.multiply_vector(v);
-
-	if(v[0]*myCamera.eye.x+v[1]*myCamera.eye.y+v[2]*myCamera.eye.z+v[3] < 0){
-		return true;
-	}
-
-	return false;
-}*/
-

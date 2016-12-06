@@ -7,8 +7,6 @@
 
 #include "TreeBody.hpp"
 
-extern Sun mySun;
-
 TreeBody::TreeBody(){
 	vertex[0][0] = -0.5; vertex[0][1] = 0; vertex[0][2] =  0.5;
 	vertex[1][0] =  0.5; vertex[1][1] = 0; vertex[1][2] =  0.5;

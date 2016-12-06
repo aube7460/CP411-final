@@ -15,10 +15,6 @@ Target::Target(){
 }
 
 void Target::draw(GLfloat x, GLfloat y,GLfloat z,GLfloat radius){
-	//myTarget->translate(x,y,z);
-	tarX = x;
-	tarY = y;
-	tarZ = z;
 	myTarget->radius = radius;
 	GLfloat matAmb1[] = { 0.7, 0.53, 0.3, 1.0 }; //ambient
 	GLfloat matDif1[] = { 0.76, 0.57, 0.16, 1.0 }; //diffuse
@@ -30,18 +26,4 @@ void Target::draw(GLfloat x, GLfloat y,GLfloat z,GLfloat radius){
 	glMaterialfv(GL_FRONT, GL_EMISSION, matEm1);
 	myTarget->draw();
 
-	/*glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D,textureID);
-	glBegin(GL_POLYGON);
-		for(i = 0; i < 360.0;i+=2) {
-			radian = i * (PI/180.0);
-			 x = (float)cos(radian)*radius+x;
-			 y = (float)sin(radian)*radius+y;
-
-			 glTexCoord2f(x, y);
-			 glVertex2f(x, y);
-		}
-	glEnd();
-	glDisable(GL_TEXTURE_2D);
-	glColor4f(1.f, 1.f, 1.f, 1.f);*/
 }

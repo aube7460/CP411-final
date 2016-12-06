@@ -19,7 +19,6 @@ class Target : public Shape{
 public:
 	Sphere* myTarget;
 	GLfloat PI;
-	GLfloat tarX,tarY,tarZ;
 	Target();
 	void draw(GLfloat x, GLfloat y,GLfloat z,GLfloat radius);
 };
